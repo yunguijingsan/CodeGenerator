@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import cn.lcf.code.generator.entity.BaseFile;
+import cn.lcf.code.generator.entity.ControllerFile;
 import cn.lcf.code.generator.entity.ServiceFile;
 import cn.lcf.code.generator.entity.InterfaceFile;
 
@@ -21,7 +22,7 @@ public class CodeGenerator {
 		this.files = files;
 	}
 	
-	public void autoCreateServiceFiles(String basePath,String packageName,Set<String> entities,String modePackage){
+	public void autoCreateServiceFiles(String basePath,String packageName,Set<String> entities,String modePackage,String daoPackage){
 		for(String entity : entities){
 			InterfaceFile file = new InterfaceFile();
 			file.setBasePath(basePath);
@@ -37,18 +38,21 @@ public class CodeGenerator {
 			classFile.addInterface(file.getName() +file.getSuffix());
 			classFile.setSuffix("ServiceImpl");
 			classFile.addImport(modePackage+"."+entity);
+			classFile.addImport(daoPackage+"."+entity+"Dao");
 			files.add(file);
 			files.add(classFile);
 		}
 	}
-	public void autoCreateControllerFiles(String basePath,String packageName,Set<String> entities,String modePackage){
+	public void autoCreateControllerFiles(String basePath,String packageName,Set<String> entities,String modePackage,String servicePackage,String url){
 		for(String entity : entities){
-			ServiceFile classFile = new ServiceFile();
+			ControllerFile classFile = new ControllerFile();
 			classFile.setName(entity);
 			classFile.setBasePath(basePath);
 			classFile.setPackageName(packageName);
 			classFile.setSuffix("Controller");
 			classFile.addImport(modePackage+"."+entity);
+			classFile.addImport(servicePackage +"." +entity +"Service");
+			classFile.setUrl(url);
 			files.add(classFile);
 		}
 	}

@@ -4,17 +4,25 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class TestCodeGenerator {
-	public static String basePath = "C:\\Users\\Administrator\\workspace\\CodeGenerator\\src";
+	public static String basePath = "D:\\Work\\CodeGenerator\\src";
+	public static String eihBasePath ="D:\\Work\\NEIH\\EIHProject\\Model\\eihView\\src";
+	public static String eihDaoPath ="D:\\Work\\EIHProject\\Model\\appsModel\\src";
 	public static void main(String[] args){
 		CodeGenerator  codeGenerator = new CodeGenerator();
 		
 		Set<String> set = new HashSet<String>();
-		set.add("User");
-		set.add("Menu");
-		set.add("Role");
-		codeGenerator.autoCreateServiceFiles(basePath, "cn.lcf.code.test.service", set,"cn.lcf.code.test.model");
-		codeGenerator.autoCreateControllerFiles(basePath, "cn.lcf.code.test.controller", set,"cn.lcf.code.test.model");
-		codeGenerator.autoCreateDaoFiles(basePath, "cn.lcf.code.test.dao", set,"cn.lcf.code.test.model");
+//		set.add("Accounts");
+//		set.add("Order");
+//		set.add("OrderService");
+//		set.add("Message");
+//		set.add("OrderProcess");
+//		set.add("ShoppingCart");
+//		set.add("Comment");
+//		set.add("Assignments");
+		set.add("Accumulate");
+		codeGenerator.autoCreateDaoFiles(eihDaoPath, "com.shine.dao.eih", set,"com.shine.entity.eih");
+//		codeGenerator.autoCreateServiceFiles(eihBasePath, "com.shine.view.service", set,"com.shine.entity.eih","com.shine.dao.eih");
+//		codeGenerator.autoCreateControllerFiles(eihBasePath, "com.shine.view.eih", set,"com.shine.entity.eih","com.shine.view.service","eihView/resources/eih/");
 //		ClassFile classFile = new ClassFile();
 //		classFile.setBasePath(basePath);
 //		classFile.setName("UserServiceImpl");

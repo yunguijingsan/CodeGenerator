@@ -5,18 +5,21 @@ import java.util.HashSet;
 import java.util.Set;
 
 public abstract class BaseFile {
-
+	
 	public static final String END_LINE = ";";
 	public static final String PUBLIC = "public";
-	public static final String TAB = "	";
-	public static final String SPACE=" ";
+	public static final String TAB = "    ";
+	public static final String SPACE = " ";
 	public static final String NEW_LINE = "\n";
-	public static final String VOID ="void";
+	public static final String VOID = "void";
+	public static final String RESPONS_ERESULT="ResponseResult";
+	public static final String RESPONS_BODY="@ResponseBody";
+    	
 
 	protected String basePath;
 
 	protected String name;
-	
+
 	protected String suffix;
 
 	protected String packageName;
@@ -50,7 +53,7 @@ public abstract class BaseFile {
 	public void setImports(Set<String> imports) {
 		this.imports = imports;
 	}
-	
+
 	protected Set<String> getExtendsClass() {
 		return extendsClass;
 	}
@@ -84,7 +87,8 @@ public abstract class BaseFile {
 	}
 
 	public String getFilePath() {
-		return this.getDirPath() + File.separator + this.getName() + this.getSuffix() + ".java";
+		return this.getDirPath() + File.separator + this.getName()
+				+ this.getSuffix() + ".java";
 	}
 
 	public boolean isFileExists() {
@@ -92,13 +96,25 @@ public abstract class BaseFile {
 		return file.exists();
 	}
 
-	public abstract String toFileString();
+	public String getClassName() {
+		return this.getName() + this.getSuffix();
+	}
 
 	public String getFileString() {
 		StringBuffer sb = new StringBuffer();
+		// 包
 		sb.append(this.getPackageLine());
+		// 导入包列表
 		sb.append(this.getImportPackageLines());
+		// 类注解
+		sb.append(this.getAnnotations());
+		// 类名第一行
 		sb.append(this.getFirstLine());
+		// 日志行
+		sb.append(this.getLoggerLine());
+		//属性
+		sb.append(this.getPropertiesLine());
+		// 方法列表
 		sb.append(this.getDefaultMethods());
 		sb.append(NEW_LINE);
 		sb.append("}");
@@ -106,12 +122,54 @@ public abstract class BaseFile {
 
 	}
 
-	public String getDefaultMethods() {
+	public String getPropertiesLine() {
 		return "";
 	}
 
+	public abstract String getLoggerLine();
+
+	public abstract String getAnnotations();
+
+	public String getDefaultMethods() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(this.getAddMethod());
+		sb.append(this.getFindByIdMethod());
+		sb.append(this.getUpdateMethod());
+		sb.append(this.getSearchMethod());
+		return sb.toString();
+	}
+
+	public String getSearchMethod() {
+		return NEW_LINE+
+		NEW_LINE+
+		TAB + PUBLIC + SPACE + "Page<" + this.name + ">" + SPACE
+				+ "search" + this.name + "s()";
+	}
+
+	public String getFindByIdMethod() {
+		return NEW_LINE + NEW_LINE + TAB + 
+				PUBLIC + SPACE + this.name + SPACE + "find" + this.name + "ById(Integer id)";
+	}
+
+	public String getUpdateMethod() {
+		return NEW_LINE + NEW_LINE + TAB + 
+				PUBLIC + SPACE + VOID + SPACE + "update" + this.name + "("
+						+ this.name + SPACE + this.name.substring(0, 1).toLowerCase()
+						+ this.name.substring(1, this.name.length()) + ")";
+	}
+
+	public String getAddMethod() {
+		return NEW_LINE +
+		       NEW_LINE +
+		       TAB + PUBLIC + SPACE + VOID + SPACE + "add" + this.name + "("
+				+ this.name + SPACE + this.name.substring(0, 1).toLowerCase()
+				+ this.name.substring(1, this.name.length()) + ")";
+	}
+
 	private Object getFirstLine() {
-		return "public" + SPACE + this.getTypeString() +SPACE + this.name +this.suffix +SPACE+ this.getExtends() + this.getImplements() + "{";
+		return "public" + SPACE + this.getTypeString() + SPACE + this.name
+				+ this.suffix + SPACE + this.getExtends()
+				+ this.getImplements() + "{";
 	}
 
 	public String getExtends() {
@@ -139,7 +197,8 @@ public abstract class BaseFile {
 	public abstract String getTypeString();
 
 	private String getPackageLine() {
-		return "package" + SPACE + this.packageName + END_LINE + NEW_LINE + NEW_LINE;
+		return "package" + SPACE + this.packageName + END_LINE + NEW_LINE
+				+ NEW_LINE;
 	}
 
 	private String getImportPackageLine(String packageName) {
@@ -153,9 +212,11 @@ public abstract class BaseFile {
 		}
 		return str + NEW_LINE;
 	}
-	
-	public void addInterface(String in){
-		this.addImport(this.getPackageName().substring(0, this.packageName.lastIndexOf(".")) + "."+ in);
+
+	public void addInterface(String in) {
+		this.addImport(this.getPackageName().substring(0,
+				this.packageName.lastIndexOf("."))
+				+ "." + in);
 		this.getImplementsInteface().add(in);
 	}
 
@@ -163,4 +224,23 @@ public abstract class BaseFile {
 		this.getImports().add(string);
 	}
 	
+	public String getEmptyMethodBody(){
+		return "{" + NEW_LINE+NEW_LINE+TAB+"}"; 
+	}
+	public String getNoMethodBody(){
+		return ";";
+	}
+
+	public String getDefaultMethodBody() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public String getLowerFirstCharactor(String name){
+		return name.substring(0,1).toLowerCase() + name.substring(1,name.length()); 
+	}
+	
+	public String nameLowerFirstCharactor(){
+		return this.name.substring(0,1).toLowerCase() + this.name.substring(1,this.name.length());
+	}
+
 }
