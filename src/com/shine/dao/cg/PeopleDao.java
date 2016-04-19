@@ -6,11 +6,11 @@ import com.shine.entity.cg.People;
 
 public interface PeopleDao {
 
-    public People findPeopleById(Integer id);
+    public Page<People> searchPeoples();
 
-    public void addPeople(People people);
+    public People findPeopleById(Integer id);
 
     public void updatePeople(People people);
 
-    public Page<People> searchPeoples();
+    public void addPeople(People people);
 }

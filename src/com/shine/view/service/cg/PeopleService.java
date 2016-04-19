@@ -6,11 +6,11 @@ import com.shine.entity.cg.People;
 
 public interface PeopleService {
 
-    public void addPeople(People people);
-
-    public void updatePeople(People people);
+    public Page<People> searchPeoples();
 
     public People findPeopleById(Integer id);
 
-    public Page<People> searchPeoples();
+    public void addPeople(People people);
+
+    public void updatePeople(People people);
 }

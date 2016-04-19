@@ -9,8 +9,8 @@ import java.util.Set;
 import cn.lcf.code.generator.entity.BaseFile;
 import cn.lcf.code.generator.entity.ControllerFile;
 import cn.lcf.code.generator.entity.DaoInterfaceFile;
-import cn.lcf.code.generator.entity.ServiceFile;
 import cn.lcf.code.generator.entity.InterfaceFile;
+import cn.lcf.code.generator.entity.ServiceFile;
 import cn.lcf.code.generator.entity.ServiceInterfaceFile;
 
 public class CodeGenerator {
@@ -78,6 +78,8 @@ public class CodeGenerator {
 	
 	public void writeFile() {
 		System.out.println("开始写类文件,共" + this.files.size() + " 个！");
+		File file;
+		FileWriter fileWriter = null;
 		for (BaseFile classFile : files) {
 
 			try {
@@ -90,17 +92,22 @@ public class CodeGenerator {
 					}
 				}
 
-				File file = new File(classFile.getFilePath());
-				FileWriter fileWriter = new FileWriter(file);
+				file = new File(classFile.getFilePath());
+			    fileWriter = new FileWriter(file);
 				System.out.println(classFile.getFileString());
 				fileWriter.write(classFile.getFileString());
 				fileWriter.flush();
 			} catch (IOException e) {
 				e.printStackTrace();
+			}finally{
+				try {
+					fileWriter.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 
 		}
 	}
-
 
 }

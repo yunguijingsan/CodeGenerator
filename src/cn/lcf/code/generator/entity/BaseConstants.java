@@ -17,5 +17,5 @@ public interface BaseConstants {
 	
 	String TYPE_INTERFACE ="interface";
 	String TYPE_CLASS="class";
-
+	
 }

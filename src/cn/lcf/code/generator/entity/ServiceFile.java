@@ -1,15 +1,9 @@
 package cn.lcf.code.generator.entity;
 
-import java.util.Set;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 public class ServiceFile extends ClassFile{
 	public ServiceFile(){
-		this.addImport("com.shine.view.service.BaseService");
 		this.addImport("org.springframework.stereotype.Service");
-		this.addImplementsInteface("BaseService");
 	}
 
 	@Override
@@ -17,27 +11,7 @@ public class ServiceFile extends ClassFile{
 		return NEW_LINE+"@Service" + NEW_LINE;
 	}
 
-	@Override
-	public String getSearchMethod() {
-		return super.getSearchMethod() + this.getSearchMethodBody();
-	}
-
-
-	@Override
-	public String getFindByIdMethod() {
-		return super.getFindByIdMethod() + this.getFindByIdMethodBody();
-	}
-
-	@Override
-	public String getUpdateMethod() {
-		return super.getUpdateMethod() + this.getUpdateMethodBody();
-	}
-
-	@Override
-	public String getAddMethod() {
-		return super.getAddMethod() + this.getAddMethodBody();
-	}
-
+	
 	@Override
 	public String getPropertiesLine() {
 		return NEW_LINE + TAB + "private" + SPACE + this.name + "Dao"

@@ -25,25 +25,6 @@ public class InterfaceFile extends BaseFile{
 		return "";
 	}
 
-	@Override
-	public String getSearchMethod() {
-		return super.getSearchMethod() + this.getNoMethodBody();
-	}
-
-	@Override
-	public String getFindByIdMethod() {
-		return super.getFindByIdMethod()+ this.getNoMethodBody();
-	}
-
-	@Override
-	public String getUpdateMethod() {
-		return super.getUpdateMethod()+ this.getNoMethodBody();
-	}
-
-	@Override
-	public String getAddMethod() {
-		return super.getAddMethod()+ this.getNoMethodBody();
-	}
 
 	@Override
 	public void addMethods() {

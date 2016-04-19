@@ -9,6 +9,7 @@ public class ControllerFile extends ClassFile {
 		this.addImport("org.springframework.web.bind.annotation.RequestMethod");
 		this.addImport("org.springframework.web.bind.annotation.RequestBody");
 		this.addImport("org.springframework.web.bind.annotation.ResponseBody");
+		
 		this.addImport("com.shine.core.exception.ResponseResult");
 	}
 
@@ -17,39 +18,6 @@ public class ControllerFile extends ClassFile {
 		return NEW_LINE + "@Controller" + NEW_LINE
 				+ "@RequestMapping(\""+this.getUrl() + this.nameLowerFirstCharactor() + "\")"
 				+ NEW_LINE;
-	}
-
-	@Override
-	public String getSearchMethod() {
-		return NEW_LINE + NEW_LINE + getSearchMethodAnnotation() + NEW_LINE
-				+ TAB + PUBLIC + SPACE + RESPONSE_ERESULT + SPACE + "search"
-				+ this.name + "s()" + this.getSearchMethodBody();
-	}
-
-	@Override
-	public String getFindByIdMethod() {
-		return NEW_LINE + this.getFindByIdMethodAnnotation() + NEW_LINE + TAB
-				+ PUBLIC + SPACE + RESPONSE_ERESULT + SPACE + "find" + this.name
-				+ "ById(Integer id)" + this.getFindByIdMethodBody();
-	}
-
-	@Override
-	public String getUpdateMethod() {
-		return NEW_LINE + this.getUpdateMethodAnnotation() + NEW_LINE + TAB
-				+ PUBLIC + SPACE + RESPONSE_ERESULT + SPACE + "update"
-				+ this.name + "(@RequestBody " + this.name + SPACE
-				+ this.name.substring(0, 1).toLowerCase()
-				+ this.name.substring(1, this.name.length()) + ")"
-				+ this.getUpdateMethodBody();
-	}
-
-	@Override
-	public String getAddMethod() {
-		return NEW_LINE + getAddMethodAnnotation() + NEW_LINE + TAB + PUBLIC
-				+ SPACE + RESPONSE_ERESULT + SPACE + "add" + this.name + "(@RequestBody "
-				+ this.name + SPACE + this.name.substring(0, 1).toLowerCase()
-				+ this.name.substring(1, this.name.length()) + ")"
-				+ this.getAddMethodBody();
 	}
 
 	public String getAddMethodBody() {

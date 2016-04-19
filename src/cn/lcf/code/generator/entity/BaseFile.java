@@ -46,14 +46,7 @@ public abstract class BaseFile implements BaseConstants {
 		this.imports = imports;
 	}
 
-	protected Set<String> getExtendsClass() {
-		return extendsClass;
-	}
-
-	protected Set<String> getImplementsInteface() {
-		return implementsInteface;
-	}
-
+	
 	public String getBasePath() {
 		return basePath;
 	}
@@ -170,22 +163,6 @@ public abstract class BaseFile implements BaseConstants {
 		return method;
 	}
 
-	public String getSearchMethod() {
-		return this.getMethodSearch().toMethodString();
-	}
-
-	public String getFindByIdMethod() {
-		return this.getMethodFindById().toMethodString();
-	}
-
-	public String getUpdateMethod() {
-		return this.getMethodUpdate().toMethodString();
-	}
-
-	public String getAddMethod() {
-		return this.getMethodAdd().toMethodString();
-	}
-
 	private Object getFirstLine() {
 		return "public" + SPACE + this.getTypeString() + SPACE + this.name
 				+ this.suffix + SPACE + this.getExtends()
@@ -237,7 +214,7 @@ public abstract class BaseFile implements BaseConstants {
 		this.addImport(this.getPackageName().substring(0,
 				this.packageName.lastIndexOf("."))
 				+ "." + in);
-		this.getImplementsInteface().add(in);
+		this.implementsInteface.add(in);
 	}
 
 	public void addImport(String importStr) {
@@ -245,7 +222,11 @@ public abstract class BaseFile implements BaseConstants {
 	}
 
 	public void addImplementsInteface(String in) {
-		this.getImplementsInteface().add(in);
+		this.implementsInteface.add(in);
+	}
+	
+	public void addExtends(String extendsStr){
+		this.extendsClass.add(extendsStr);
 	}
 
 	public String getEmptyMethodBody() {
@@ -273,7 +254,6 @@ public abstract class BaseFile implements BaseConstants {
 	public abstract void addMethods();
 
 	public String getDefaultMethodBody() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }
