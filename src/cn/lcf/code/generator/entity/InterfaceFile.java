@@ -45,5 +45,26 @@ public class InterfaceFile extends BaseFile{
 		return super.getAddMethod()+ this.getNoMethodBody();
 	}
 
+	@Override
+	public void addMethods() {
+		Method addMethod = super.getMethodAdd();
+		addMethod.setMethodBody(this.getNoMethodBody());
+		
+		Method updateMethod = super.getMethodUpdate();
+		updateMethod.setMethodBody(this.getNoMethodBody());
+		
+		Method searchMethod = super.getMethodSearch();
+		searchMethod.setMethodBody(this.getNoMethodBody());
+		
+		Method findMethod = super.getMethodFindById();
+		findMethod.setMethodBody(this.getNoMethodBody());
+		
+		super.addMethod(addMethod);
+		super.addMethod(updateMethod);
+		super.addMethod(searchMethod);
+		super.addMethod(findMethod);
+		
+	}
+
 	
 }

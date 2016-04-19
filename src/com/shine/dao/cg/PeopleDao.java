@@ -6,9 +6,9 @@ import com.shine.entity.cg.People;
 
 public interface PeopleDao {
 
-    public void addPeople(People people);
-
     public People findPeopleById(Integer id);
+
+    public void addPeople(People people);
 
     public void updatePeople(People people);
 

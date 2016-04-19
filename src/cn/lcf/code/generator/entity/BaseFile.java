@@ -4,17 +4,7 @@ import java.io.File;
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class BaseFile {
-	
-	public static final String END_LINE = ";";
-	public static final String PUBLIC = "public";
-	public static final String TAB = "    ";
-	public static final String SPACE = " ";
-	public static final String NEW_LINE = "\n";
-	public static final String VOID = "void";
-	public static final String RESPONS_ERESULT="ResponseResult";
-	public static final String RESPONS_BODY="@ResponseBody";
-    	
+public abstract class BaseFile implements BaseConstants {
 
 	protected String basePath;
 
@@ -29,6 +19,8 @@ public abstract class BaseFile {
 	private Set<String> implementsInteface = new HashSet<String>();;
 
 	private Set<String> imports = new HashSet<String>();
+
+	private Set<Method> methods = new HashSet<Method>();
 
 	public String getName() {
 		return name;
@@ -112,7 +104,7 @@ public abstract class BaseFile {
 		sb.append(this.getFirstLine());
 		// 日志行
 		sb.append(this.getLoggerLine());
-		//属性
+		// 属性
 		sb.append(this.getPropertiesLine());
 		// 方法列表
 		sb.append(this.getDefaultMethods());
@@ -132,38 +124,66 @@ public abstract class BaseFile {
 
 	public String getDefaultMethods() {
 		StringBuffer sb = new StringBuffer();
-		sb.append(this.getAddMethod());
-		sb.append(this.getFindByIdMethod());
-		sb.append(this.getUpdateMethod());
-		sb.append(this.getSearchMethod());
+		// sb.append(this.getAddMethod());
+		// sb.append(this.getFindByIdMethod());
+		// sb.append(this.getUpdateMethod());
+		// sb.append(this.getSearchMethod());
+		for (Method method : methods) {
+			sb.append(method.toMethodString());
+		}
+
 		return sb.toString();
 	}
 
+	public Method getMethodSearch() {
+		Method method = new Method();
+		method.setName(METHOD_SEARCH + this.name + "s");
+		method.setReturnObject("Page<" + this.name + ">");
+		method.setModifier(PUBLIC);
+		return method;
+	}
+
+	public Method getMethodFindById() {
+		Method method = new Method();
+		method.setName(METHOD_FIND + this.name + "ById");
+		method.setReturnObject(this.name);
+		method.setModifier(PUBLIC);
+		method.addMethodParams("Integer", "id");
+		return method;
+	}
+
+	public Method getMethodUpdate() {
+		Method method = new Method();
+		method.setName(METHOD_UPDATE + this.name);
+		method.setReturnObject(VOID);
+		method.setModifier(PUBLIC);
+		method.addMethodParams(this.name, this.nameLowerFirstCharactor());
+		return method;
+	}
+
+	public Method getMethodAdd() {
+		Method method = new Method();
+		method.setName(METHOD_ADD + this.name);
+		method.setReturnObject(VOID);
+		method.setModifier(PUBLIC);
+		method.addMethodParams(this.name, this.nameLowerFirstCharactor());
+		return method;
+	}
+
 	public String getSearchMethod() {
-		return NEW_LINE+
-		NEW_LINE+
-		TAB + PUBLIC + SPACE + "Page<" + this.name + ">" + SPACE
-				+ "search" + this.name + "s()";
+		return this.getMethodSearch().toMethodString();
 	}
 
 	public String getFindByIdMethod() {
-		return NEW_LINE + NEW_LINE + TAB + 
-				PUBLIC + SPACE + this.name + SPACE + "find" + this.name + "ById(Integer id)";
+		return this.getMethodFindById().toMethodString();
 	}
 
 	public String getUpdateMethod() {
-		return NEW_LINE + NEW_LINE + TAB + 
-				PUBLIC + SPACE + VOID + SPACE + "update" + this.name + "("
-						+ this.name + SPACE + this.name.substring(0, 1).toLowerCase()
-						+ this.name.substring(1, this.name.length()) + ")";
+		return this.getMethodUpdate().toMethodString();
 	}
 
 	public String getAddMethod() {
-		return NEW_LINE +
-		       NEW_LINE +
-		       TAB + PUBLIC + SPACE + VOID + SPACE + "add" + this.name + "("
-				+ this.name + SPACE + this.name.substring(0, 1).toLowerCase()
-				+ this.name.substring(1, this.name.length()) + ")";
+		return this.getMethodAdd().toMethodString();
 	}
 
 	private Object getFirstLine() {
@@ -220,30 +240,40 @@ public abstract class BaseFile {
 		this.getImplementsInteface().add(in);
 	}
 
-	public void addImport(String string) {
-		this.getImports().add(string);
+	public void addImport(String importStr) {
+		this.getImports().add(importStr);
 	}
-	public void addImplementsInteface(String in){
+
+	public void addImplementsInteface(String in) {
 		this.getImplementsInteface().add(in);
 	}
-	
-	public String getEmptyMethodBody(){
-		return "{" + NEW_LINE+NEW_LINE+TAB+"}"; 
+
+	public String getEmptyMethodBody() {
+		return "{" + NEW_LINE + NEW_LINE + TAB + "}";
 	}
-	public String getNoMethodBody(){
+
+	public String getNoMethodBody() {
 		return ";";
 	}
+
+	public String getLowerFirstCharactor(String name) {
+		return name.substring(0, 1).toLowerCase()
+				+ name.substring(1, name.length());
+	}
+
+	public String nameLowerFirstCharactor() {
+		return this.name.substring(0, 1).toLowerCase()
+				+ this.name.substring(1, this.name.length());
+	}
+
+	public void addMethod(Method method) {
+		this.methods.add(method);
+	}
+
+	public abstract void addMethods();
 
 	public String getDefaultMethodBody() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String getLowerFirstCharactor(String name){
-		return name.substring(0,1).toLowerCase() + name.substring(1,name.length()); 
-	}
-	
-	public String nameLowerFirstCharactor(){
-		return this.name.substring(0,1).toLowerCase() + this.name.substring(1,this.name.length());
-	}
-
 }

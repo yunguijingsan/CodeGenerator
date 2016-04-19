@@ -26,48 +26,53 @@ public class CodeGenerator {
 	
 	public void autoCreateServiceFiles(String basePath,String packageName,Set<String> entities,String modePackage,String daoPackage){
 		for(String entity : entities){
-			InterfaceFile file = new ServiceInterfaceFile();
-			file.setBasePath(basePath);
-			file.setName(entity);
-			file.setSuffix("Service");
-			file.setPackageName(packageName);
-			file.addImport(modePackage+"."+entity);
+			InterfaceFile serviceFile = new ServiceInterfaceFile();
+			serviceFile.setBasePath(basePath);
+			serviceFile.setName(entity);
+			serviceFile.setSuffix("Service");
+			serviceFile.setPackageName(packageName);
+			serviceFile.addImport(modePackage+"."+entity);
+			serviceFile.addMethods();
 			
 			
-			ServiceFile classFile = new ServiceFile();
-			classFile.setName(entity);
-			classFile.setBasePath(basePath);
-			classFile.setPackageName(packageName +".impl");
-			classFile.addInterface(file.getName() +file.getSuffix());
-			classFile.setSuffix("ServiceImpl");
-			classFile.addImport(modePackage+"."+entity);
-			classFile.addImport(daoPackage+"."+entity+"Dao");
-			files.add(file);
-			files.add(classFile);
+			ServiceFile serviceImplFile = new ServiceFile();
+			serviceImplFile.setName(entity);
+			serviceImplFile.setBasePath(basePath);
+			serviceImplFile.setPackageName(packageName +".impl");
+			serviceImplFile.addInterface(serviceFile.getName() +serviceFile.getSuffix());
+			serviceImplFile.setSuffix("ServiceImpl");
+			serviceImplFile.addImport(modePackage+"."+entity);
+			serviceImplFile.addImport(daoPackage+"."+entity+"Dao");
+			serviceImplFile.addMethods();
+
+			files.add(serviceFile);
+			files.add(serviceImplFile);
 		}
 	}
 	public void autoCreateControllerFiles(String basePath,String packageName,Set<String> entities,String modePackage,String servicePackage,String url){
 		for(String entity : entities){
-			ControllerFile classFile = new ControllerFile();
-			classFile.setName(entity);
-			classFile.setBasePath(basePath);
-			classFile.setPackageName(packageName);
-			classFile.setSuffix("Controller");
-			classFile.addImport(modePackage+"."+entity);
-			classFile.addImport(servicePackage +"." +entity +"Service");
-			classFile.setUrl(url);
-			files.add(classFile);
+			ControllerFile controllerFile = new ControllerFile();
+			controllerFile.setName(entity);
+			controllerFile.setBasePath(basePath);
+			controllerFile.setPackageName(packageName);
+			controllerFile.setSuffix("Controller");
+			controllerFile.addImport(modePackage+"."+entity);
+			controllerFile.addImport(servicePackage +"." +entity +"Service");
+			controllerFile.setUrl(url);
+			controllerFile.addMethods();
+			files.add(controllerFile);
 		}
 	}
 	public void autoCreateDaoFiles(String basePath, String packageName, Set<String> entities,String modePackage) {
 		for(String entity : entities){
-			BaseFile classFile = new DaoInterfaceFile();
-			classFile.setName(entity);
-			classFile.setBasePath(basePath);
-			classFile.setSuffix("Dao");
-			classFile.setPackageName(packageName);
-			classFile.addImport(modePackage+"."+entity);
-			files.add(classFile);
+			BaseFile daoFile = new DaoInterfaceFile();
+			daoFile.setName(entity);
+			daoFile.setBasePath(basePath);
+			daoFile.setSuffix("Dao");
+			daoFile.setPackageName(packageName);
+			daoFile.addImport(modePackage+"."+entity);
+			daoFile.addMethods();
+			files.add(daoFile);
 		}	
 	}
 	

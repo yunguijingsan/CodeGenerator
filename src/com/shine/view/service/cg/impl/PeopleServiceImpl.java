@@ -15,21 +15,21 @@ public class PeopleServiceImpl  implements BaseService,PeopleService{
 
     private PeopleDao peopleDao;
 
-    public void addPeople(People people){ 
-        peopleDao.addPeople(people);
-    }
-
     public People findPeopleById(Integer id){ 
         People people=peopleDao.findPeopleById(id);
         return people;
+    }
+
+    public Page<People> searchPeoples(){ 
+        Page<People> peoples = peopleDao.searchPeoples();
+        return peoples;
     }
 
     public void updatePeople(People people){ 
         peopleDao.updatePeople(people);
     }
 
-    public Page<People> searchPeoples(){ 
-        Page<People> peoples = peopleDao.searchPeoples();
-        return peoples;
+    public void addPeople(People people){ 
+        peopleDao.addPeople(people);
     }
 }

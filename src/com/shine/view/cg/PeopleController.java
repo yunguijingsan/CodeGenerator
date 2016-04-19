@@ -21,32 +21,27 @@ public class PeopleController {
     @Autowired
     private PeopleService peopleService;
 
-    @ResponseBody
     @RequestMapping(method=RequestMethod.POST)
-    public ResponseResult addPeople(@RequestBody People people){ 
+    public ResponseResult addPeople(People people){ 
         peopleService.addPeople(people);
         return ResponseResult.createSuccess(people);
     }
 
-    @ResponseBody
     @RequestMapping(method=RequestMethod.GET)
     public ResponseResult findPeopleById(Integer id){ 
         People people=peopleService.findPeopleById(id);
         return ResponseResult.createSuccess(people);
     }
 
-    @ResponseBody
-    @RequestMapping(method=RequestMethod.PUT)
-    public ResponseResult updatePeople(@RequestBody People people){ 
-        peopleService.updatePeople(people);
-        return ResponseResult.createSuccess(people);
-    }
-
-
-    @ResponseBody
     @RequestMapping(value="search",method=RequestMethod.GET)
     public ResponseResult searchPeoples(){ 
         Page<People> peoples = peopleService.searchPeoples();
         return ResponseResult.createSuccess(peoples);
+    }
+
+    @RequestMapping(method=RequestMethod.PUT)
+    public ResponseResult updatePeople(People people){ 
+        peopleService.updatePeople(people);
+        return ResponseResult.createSuccess(people);
     }
 }

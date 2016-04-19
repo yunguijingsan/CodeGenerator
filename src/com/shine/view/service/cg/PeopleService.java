@@ -8,9 +8,9 @@ public interface PeopleService {
 
     public void addPeople(People people);
 
-    public People findPeopleById(Integer id);
-
     public void updatePeople(People people);
+
+    public People findPeopleById(Integer id);
 
     public Page<People> searchPeoples();
 }

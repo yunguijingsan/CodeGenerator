@@ -70,4 +70,25 @@ public class ServiceFile extends ClassFile{
 				+ "return "+ this.nameLowerFirstCharactor()+"s;" + NEW_LINE + TAB + "}";
 	}
 
+	@Override
+	public void addMethods() {
+		Method addMethod = super.getMethodAdd();
+		addMethod.setMethodBody(this.getAddMethodBody());
+		
+		Method updateMethod = super.getMethodUpdate();
+		updateMethod.setMethodBody(this.getUpdateMethodBody());
+		
+		Method searchMethod = super.getMethodSearch();
+		searchMethod.setMethodBody(this.getSearchMethodBody());
+		
+		Method findMethod = super.getMethodFindById();
+		findMethod.setMethodBody(this.getFindByIdMethodBody());
+		
+		super.addMethod(addMethod);
+		super.addMethod(updateMethod);
+		super.addMethod(searchMethod);
+		super.addMethod(findMethod);
+		
+	}
+
 }

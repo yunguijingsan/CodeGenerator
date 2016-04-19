@@ -22,21 +22,21 @@ public class ControllerFile extends ClassFile {
 	@Override
 	public String getSearchMethod() {
 		return NEW_LINE + NEW_LINE + getSearchMethodAnnotation() + NEW_LINE
-				+ TAB + PUBLIC + SPACE + RESPONS_ERESULT + SPACE + "search"
+				+ TAB + PUBLIC + SPACE + RESPONSE_ERESULT + SPACE + "search"
 				+ this.name + "s()" + this.getSearchMethodBody();
 	}
 
 	@Override
 	public String getFindByIdMethod() {
 		return NEW_LINE + this.getFindByIdMethodAnnotation() + NEW_LINE + TAB
-				+ PUBLIC + SPACE + RESPONS_ERESULT + SPACE + "find" + this.name
+				+ PUBLIC + SPACE + RESPONSE_ERESULT + SPACE + "find" + this.name
 				+ "ById(Integer id)" + this.getFindByIdMethodBody();
 	}
 
 	@Override
 	public String getUpdateMethod() {
 		return NEW_LINE + this.getUpdateMethodAnnotation() + NEW_LINE + TAB
-				+ PUBLIC + SPACE + RESPONS_ERESULT + SPACE + "update"
+				+ PUBLIC + SPACE + RESPONSE_ERESULT + SPACE + "update"
 				+ this.name + "(@RequestBody " + this.name + SPACE
 				+ this.name.substring(0, 1).toLowerCase()
 				+ this.name.substring(1, this.name.length()) + ")"
@@ -46,7 +46,7 @@ public class ControllerFile extends ClassFile {
 	@Override
 	public String getAddMethod() {
 		return NEW_LINE + getAddMethodAnnotation() + NEW_LINE + TAB + PUBLIC
-				+ SPACE + RESPONS_ERESULT + SPACE + "add" + this.name + "(@RequestBody "
+				+ SPACE + RESPONSE_ERESULT + SPACE + "add" + this.name + "(@RequestBody "
 				+ this.name + SPACE + this.name.substring(0, 1).toLowerCase()
 				+ this.name.substring(1, this.name.length()) + ")"
 				+ this.getAddMethodBody();
@@ -89,7 +89,7 @@ public class ControllerFile extends ClassFile {
 	}
 
 	public String getSearchMethodAnnotation() {
-		return NEW_LINE + TAB + RESPONS_BODY + NEW_LINE + TAB
+		return NEW_LINE + TAB + RESPONSE_BODY + NEW_LINE + TAB
 				+ "@RequestMapping(value=\"search\",method=RequestMethod.GET)";
 	}
 
@@ -98,17 +98,17 @@ public class ControllerFile extends ClassFile {
 	}
 
 	public String getFindByIdMethodAnnotation() {
-		return NEW_LINE + TAB + RESPONS_BODY + NEW_LINE + TAB
+		return NEW_LINE + TAB + RESPONSE_BODY + NEW_LINE + TAB
 				+ getRequestMapping("GET");
 	}
 
 	public String getUpdateMethodAnnotation() {
-		return NEW_LINE + TAB + RESPONS_BODY + NEW_LINE + TAB
+		return NEW_LINE + TAB + RESPONSE_BODY + NEW_LINE + TAB
 				+ getRequestMapping("PUT");
 	}
 
 	public String getAddMethodAnnotation() {
-		return NEW_LINE + TAB + RESPONS_BODY + NEW_LINE + TAB
+		return NEW_LINE + TAB + RESPONSE_BODY + NEW_LINE + TAB
 				+ getRequestMapping("POST");
 	}
 
@@ -137,6 +137,37 @@ public class ControllerFile extends ClassFile {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	@Override
+	public void addMethods() {
+		
+		Method addMethod = super.getMethodAdd();
+		addMethod.addAnnotation(getRequestMapping("POST"));
+		addMethod.setReturnObject(RESPONSE_ERESULT);
+		addMethod.setMethodBody(this.getAddMethodBody());
+		
+		Method updateMethod = super.getMethodUpdate();
+		updateMethod.addAnnotation(getRequestMapping("PUT"));
+		updateMethod.setReturnObject(RESPONSE_ERESULT);
+		updateMethod.setMethodBody(this.getUpdateMethodBody());
+		
+		Method searchMethod = super.getMethodSearch();
+		searchMethod.setReturnObject(RESPONSE_ERESULT);
+		searchMethod.addAnnotation("@RequestMapping(value=\"search\",method=RequestMethod.GET)");
+		searchMethod.setMethodBody(this.getSearchMethodBody());
+		
+		Method findMethod = super.getMethodFindById();
+		findMethod.addAnnotation(getRequestMapping("GET"));
+		findMethod.setReturnObject(RESPONSE_ERESULT);
+		findMethod.setMethodBody(this.getFindByIdMethodBody());
+		
+		super.addMethod(addMethod);
+		super.addMethod(updateMethod);
+		super.addMethod(searchMethod);
+		super.addMethod(findMethod);
+		
+		
 	}
 	
 
