@@ -8,8 +8,10 @@ import java.util.Set;
 
 import cn.lcf.code.generator.entity.BaseFile;
 import cn.lcf.code.generator.entity.ControllerFile;
+import cn.lcf.code.generator.entity.DaoInterfaceFile;
 import cn.lcf.code.generator.entity.ServiceFile;
 import cn.lcf.code.generator.entity.InterfaceFile;
+import cn.lcf.code.generator.entity.ServiceInterfaceFile;
 
 public class CodeGenerator {
 	private Set<BaseFile> files = new HashSet<>();
@@ -24,12 +26,13 @@ public class CodeGenerator {
 	
 	public void autoCreateServiceFiles(String basePath,String packageName,Set<String> entities,String modePackage,String daoPackage){
 		for(String entity : entities){
-			InterfaceFile file = new InterfaceFile();
+			InterfaceFile file = new ServiceInterfaceFile();
 			file.setBasePath(basePath);
 			file.setName(entity);
 			file.setSuffix("Service");
 			file.setPackageName(packageName);
 			file.addImport(modePackage+"."+entity);
+			
 			
 			ServiceFile classFile = new ServiceFile();
 			classFile.setName(entity);
@@ -58,7 +61,7 @@ public class CodeGenerator {
 	}
 	public void autoCreateDaoFiles(String basePath, String packageName, Set<String> entities,String modePackage) {
 		for(String entity : entities){
-			BaseFile classFile = new InterfaceFile();
+			BaseFile classFile = new DaoInterfaceFile();
 			classFile.setName(entity);
 			classFile.setBasePath(basePath);
 			classFile.setSuffix("Dao");

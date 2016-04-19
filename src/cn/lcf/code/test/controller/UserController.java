@@ -2,12 +2,17 @@ package cn.lcf.code.test.controller;
 
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import cn.lcf.code.test.service.UserService;
+
 import com.shine.core.exception.ResponseResult;
+import com.shine.core.utils.page.Page;
+
 import org.springframework.stereotype.Controller;
-import com.shine.model.general.utils.page.Page;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import cn.lcf.code.test.model.User;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 

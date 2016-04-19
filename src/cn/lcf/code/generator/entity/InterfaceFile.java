@@ -2,7 +2,7 @@ package cn.lcf.code.generator.entity;
 
 public class InterfaceFile extends BaseFile{
 	public InterfaceFile(){
-		this.addImport("com.shine.model.general.utils.page.Page");
+		this.addImport("com.shine.core.utils.page.Page");
 	}
 
 	@Override

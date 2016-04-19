@@ -24,11 +24,11 @@ public abstract class BaseFile {
 
 	protected String packageName;
 
-	protected Set<String> extendsClass = new HashSet<String>();;
+	private Set<String> extendsClass = new HashSet<String>();;
 
-	protected Set<String> implementsInteface = new HashSet<String>();;
+	private Set<String> implementsInteface = new HashSet<String>();;
 
-	protected Set<String> imports = new HashSet<String>();
+	private Set<String> imports = new HashSet<String>();
 
 	public String getName() {
 		return name;
@@ -222,6 +222,9 @@ public abstract class BaseFile {
 
 	public void addImport(String string) {
 		this.getImports().add(string);
+	}
+	public void addImplementsInteface(String in){
+		this.getImplementsInteface().add(in);
 	}
 	
 	public String getEmptyMethodBody(){

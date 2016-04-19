@@ -1,9 +1,12 @@
 package cn.lcf.code.test.service.impl;
 
 import cn.lcf.code.test.service.UserService;
-import com.shine.model.general.utils.page.Page;
+
+import com.shine.core.utils.page.Page;
+
 import cn.lcf.code.test.model.User;
 import cn.lcf.code.test.dao.UserDao;
+
 import org.springframework.stereotype.Service;
 import org.apache.log4j.Logger;
 

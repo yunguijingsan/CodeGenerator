@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 public class ServiceFile extends ClassFile{
 	public ServiceFile(){
+		this.addImport("com.shine.view.service.BaseService");
 		this.addImport("org.springframework.stereotype.Service");
+		this.addImplementsInteface("BaseService");
 	}
 
 	@Override
@@ -68,5 +70,4 @@ public class ServiceFile extends ClassFile{
 				+ "return "+ this.nameLowerFirstCharactor()+"s;" + NEW_LINE + TAB + "}";
 	}
 
-	
 }

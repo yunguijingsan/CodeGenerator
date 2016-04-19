@@ -1,6 +1,7 @@
 package cn.lcf.code.test.dao;
 
-import com.shine.model.general.utils.page.Page;
+import com.shine.core.utils.page.Page;
+
 import cn.lcf.code.test.model.User;
 
 public interface UserDao {

@@ -6,7 +6,7 @@ public abstract class ClassFile extends BaseFile{
 	
 	{
 		this.addImport("org.apache.log4j.Logger");
-		this.addImport("com.shine.model.general.utils.page.Page");
+		this.addImport("com.shine.core.utils.page.Page");
 	}
 		
 	private Set<String> properties;

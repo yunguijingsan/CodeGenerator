@@ -1,4 +1,4 @@
-package com.shine.model.general.utils.page;
+package com.shine.core.utils.page;
 
 import java.util.List;
 import java.util.regex.Pattern;
