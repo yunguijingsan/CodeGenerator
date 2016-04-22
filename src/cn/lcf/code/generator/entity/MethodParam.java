@@ -1,9 +1,16 @@
 package cn.lcf.code.generator.entity;
 
 public class MethodParam {
+	private String annotation;
 	private String type;
 	private String name;
 	
+	public MethodParam(String annotation, String type, String name) {
+		super();
+		this.annotation = annotation;
+		this.type = type;
+		this.name = name;
+	}
 	public MethodParam(String type, String name) {
 		this.type = type;
 		this.name = name;
@@ -21,7 +28,13 @@ public class MethodParam {
 		this.name = name;
 	}
 	public String toMethodParamString() {
-		return this.type +" " + this.name;
+		return ((this.annotation !=null && !"".equals(this.annotation)) ? this.annotation +" " : "") + this.type +" " + this.name;
+	}
+	public String getAnnotation() {
+		return annotation;
+	}
+	public void setAnnotation(String annotation) {
+		this.annotation = annotation;
 	}
 	
 

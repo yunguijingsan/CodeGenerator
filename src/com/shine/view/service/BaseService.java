@@ -1,5 +1,5 @@
 package com.shine.view.service;
 
-public interface BaseService {
+public class BaseService {
 
 }

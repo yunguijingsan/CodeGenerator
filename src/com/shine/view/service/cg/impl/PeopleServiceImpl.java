@@ -19,12 +19,12 @@ public class PeopleServiceImpl  implements PeopleService{
         return peoples;
     }
 
-    public void addPeople(People people){ 
-        peopleDao.addPeople(people);
-    }
-
     public void updatePeople(People people){ 
         peopleDao.updatePeople(people);
+    }
+
+    public void addPeople(People people){ 
+        peopleDao.addPeople(people);
     }
 
     public People findPeopleById(Integer id){ 

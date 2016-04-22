@@ -1,5 +1,5 @@
 package com.shine.dao;
 
-public interface BaseDao {
+public class BaseDao {
 
 }

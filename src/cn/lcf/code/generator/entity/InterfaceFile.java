@@ -11,11 +11,6 @@ public class InterfaceFile extends BaseFile{
 	}
 
 	@Override
-	public String getExtends() {
-		return "";
-	}
-
-	@Override
 	public String getAnnotations() {
 		return "";
 	}

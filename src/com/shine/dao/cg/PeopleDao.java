@@ -8,9 +8,9 @@ public interface PeopleDao {
 
     public Page<People> searchPeoples();
 
-    public People findPeopleById(Integer id);
-
     public void updatePeople(People people);
 
     public void addPeople(People people);
+
+    public People findPeopleById(Integer id);
 }

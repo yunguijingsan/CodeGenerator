@@ -58,11 +58,24 @@ public class ServiceFile extends ClassFile{
 		Method findMethod = super.getMethodFindById();
 		findMethod.setMethodBody(this.getFindByIdMethodBody());
 		
+		Method applyMethod = new Method();
+		applyMethod.setModifier(PUBLIC);
+		applyMethod.setName("apply");
+		applyMethod.setReturnObject(VOID);
+		applyMethod.setMethodBody(this.getApplyMethodBody());
+		applyMethod.addAnnotation("@Override");
+		
 		super.addMethod(addMethod);
 		super.addMethod(updateMethod);
 		super.addMethod(searchMethod);
 		super.addMethod(findMethod);
-		
+		super.addMethod(applyMethod);
+	}
+
+	private String getApplyMethodBody() {
+		 return "{ " + NEW_LINE + TAB + TAB + this.nameLowerFirstCharactor()
+			+ "Dao.apply();" 
+			+ NEW_LINE + TAB + "}";
 	}
 
 }

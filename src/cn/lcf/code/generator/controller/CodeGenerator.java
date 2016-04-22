@@ -32,6 +32,7 @@ public class CodeGenerator {
 			serviceFile.setSuffix("Service");
 			serviceFile.setPackageName(packageName);
 			serviceFile.addImport(modePackage+"."+entity);
+			serviceFile.addExtends("BaseService");
 			serviceFile.addMethods();
 			
 			
@@ -72,6 +73,7 @@ public class CodeGenerator {
 			daoFile.setPackageName(packageName);
 			daoFile.addImport(modePackage+"."+entity);
 			daoFile.addMethods();
+			daoFile.addExtends("BaseDao");
 			files.add(daoFile);
 		}	
 	}

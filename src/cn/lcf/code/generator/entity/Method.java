@@ -44,9 +44,14 @@ public class Method implements BaseConstants{
 		this.methodBody = methodBody;
 	}
 	
+	public void addMethodParams(String annotation,String type,String name){
+		this.methodParams.add(new MethodParam(annotation,type,name));
+	}
+
 	public void addMethodParams(String type,String name){
 		this.methodParams.add(new MethodParam(type,name));
 	}
+	
 	
 	public String toMethodString(){
 		StringBuilder sb = new StringBuilder();

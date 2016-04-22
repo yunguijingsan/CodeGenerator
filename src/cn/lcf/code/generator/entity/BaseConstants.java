@@ -10,6 +10,7 @@ public interface BaseConstants {
 	 String VOID = "void";
 	 String RESPONSE_ERESULT = "ResponseResult";
 	 String RESPONSE_BODY = "@ResponseBody";
+	 String REQUEST_BODY = "@RequestBody";
 	 String METHOD_ADD="add";
 	 String METHOD_SEARCH="search";
 	 String METHOD_UPDATE="update";

@@ -14,23 +14,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 @Controller
-@RequestMapping("/resources/cg/people")
+@RequestMapping("/resources/code/people")
 public class PeopleController {
     private static Logger logger = Logger.getLogger(PeopleController.class);
 
     @Autowired
     private PeopleService peopleService;
 
-    @RequestMapping(method=RequestMethod.PUT)
-    public ResponseResult updatePeople(People people){ 
-        peopleService.updatePeople(people);
-        return ResponseResult.createSuccess(people);
-    }
-
     @RequestMapping(method=RequestMethod.POST)
     public ResponseResult addPeople(People people){ 
         peopleService.addPeople(people);
         return ResponseResult.createSuccess(people);
+    }
+
+    @RequestMapping(value="search",method=RequestMethod.GET)
+    public ResponseResult searchPeoples(){ 
+        Page<People> peoples = peopleService.searchPeoples();
+        return ResponseResult.createSuccess(peoples);
     }
 
     @RequestMapping(method=RequestMethod.GET)
@@ -39,9 +39,9 @@ public class PeopleController {
         return ResponseResult.createSuccess(people);
     }
 
-    @RequestMapping(value="search",method=RequestMethod.GET)
-    public ResponseResult searchPeoples(){ 
-        Page<People> peoples = peopleService.searchPeoples();
-        return ResponseResult.createSuccess(peoples);
+    @RequestMapping(method=RequestMethod.PUT)
+    public ResponseResult updatePeople(People people){ 
+        peopleService.updatePeople(people);
+        return ResponseResult.createSuccess(people);
     }
 }
