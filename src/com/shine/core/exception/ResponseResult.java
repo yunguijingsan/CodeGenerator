@@ -145,7 +145,7 @@ public class ResponseResult {
      */
     public ResponseResult include(Class clazz, String... properties) {
         if (clazz.equals(ResponseResult.class)) {
-            throw EihServiceException.create("PUBLIC.PROPERTY.FILTER.ILLIGAL");
+            throw ServiceException.create("PUBLIC.PROPERTY.FILTER.ILLIGAL");
         }
         includeMap.put(clazz, this.getSetFromProperties(properties));
         return this;
@@ -163,7 +163,7 @@ public class ResponseResult {
      */
     public ResponseResult exclude(Class clazz, String... properties) {
         if (clazz.equals(ResponseResult.class)) {
-            throw EihServiceException.create("PUBLIC.PROPERTY.FILTER.ILLIGAL");
+            throw ServiceException.create("PUBLIC.PROPERTY.FILTER.ILLIGAL");
         }
         excludeMap.put(clazz, this.getSetFromProperties(properties));
         return this;

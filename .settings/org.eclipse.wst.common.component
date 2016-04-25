@@ -2,6 +2,7 @@
     <wb-module deploy-name="CodeGenerator">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/template"/>
         <property name="context-root" value="CodeGenerator"/>
         <property name="java-output-path" value="/CodeGenerator/bin"/>
     </wb-module>

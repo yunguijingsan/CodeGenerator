@@ -4,7 +4,7 @@ package com.shine.core.exception;
 /**
  * 统一的异常定义
  */
-public class EihServiceException extends RuntimeException {
+public class ServiceException extends RuntimeException {
 
     /**
      *
@@ -20,15 +20,15 @@ public class EihServiceException extends RuntimeException {
      * @param resultCode 结果码
      * @return
      */
-    public static EihServiceException create(String resultCode){
-      return  new EihServiceException(resultCode,"");
+    public static ServiceException create(String resultCode){
+      return  new ServiceException(resultCode,"");
     }
 
-    private EihServiceException(String resultCode, String message) {
+    private ServiceException(String resultCode, String message) {
         this.resultCode = resultCode;
         this.message = message;
     }
-    protected EihServiceException() {
+    protected ServiceException() {
         super();
     }
     
