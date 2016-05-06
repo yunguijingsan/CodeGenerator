@@ -25,7 +25,10 @@ public class TestFm {
 	public static void main(String[] args) throws IOException, TemplateException{
 		
 	}
-	
+	@Test
+	public void test(){
+		System.out.println(Configuration.getVersion());
+	}
 	@Test
 	public void generateServiceImpl(){
 		try {
@@ -53,7 +56,7 @@ public class TestFm {
 			Map<String, Object> root = new HashMap<>();
 			CodeTemplateParams params = new CodeTemplateParams();
 			params.setProductCode("cg");
-			params.setEntityName("Address");
+			params.setEntityName("Test");
 			params.setEntityPackage("com.shine.entity.cg");
 			params.setConditionPackage("com.shine.model.condition");
 			params.setServicePackage("com.shine.view.service.cg");
@@ -61,8 +64,10 @@ public class TestFm {
 			Template temp = cfg.getTemplate("ServiceImpl.ftl");
 
 			root.put("params", params);
-			 Writer out = new OutputStreamWriter(new FileOutputStream("src/com/shine/view/service/cg/impl/AddressServiceImpl.java"),Charset.forName("UTF-8"));
-			 temp.process(root, out);
+			
+			Writer out = new OutputStreamWriter(new FileOutputStream("D:\\Work\\CodeGenerator\\src/com/shine/view/service/cg/impl/AddressServiceImpl.java"),Charset.forName("UTF-8"));
+			
+			temp.process(root, out);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

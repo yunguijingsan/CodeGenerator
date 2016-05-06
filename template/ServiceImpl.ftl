@@ -17,33 +17,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ${params.entityName}ServiceImpl  implements BaseService{
     private static Logger logger = Logger.getLogger(${params.entityName}ServiceImpl.class);
 
-    @Autowired
+    //TODO @Autowired
     private ${params.entityName}Dao  ${params.nameLowerFirstCharactor}Dao;
 
-    public void add(${params.entityName}  ${params.nameLowerFirstCharactor}){ 
+    public void add${params.entityName}(${params.entityName}  ${params.nameLowerFirstCharactor}){ 
         validate( ${params.nameLowerFirstCharactor});
-         ${params.nameLowerFirstCharactor}Dao.add(${params.nameLowerFirstCharactor});
+         ${params.nameLowerFirstCharactor}Dao.add${params.entityName}(${params.nameLowerFirstCharactor});
     }
 
-    public ${params.entityName}  findById(Integer id){ 
+    public ${params.entityName}  find${params.entityName}ById(Integer id){ 
         validateId(id);
-         ${params.nameLowerFirstCharactor}= ${params.nameLowerFirstCharactor}Dao.findById(id);
+        ${params.entityName} ${params.nameLowerFirstCharactor}= ${params.nameLowerFirstCharactor}Dao.find${params.entityName}ById(id);
         return ${params.nameLowerFirstCharactor};
     }
 
-    public void update( ${params.entityName} ${params.nameLowerFirstCharactor}){ 
+    public void update${params.entityName}( ${params.entityName} ${params.nameLowerFirstCharactor}){ 
         validateId(1);//TODO
         validate(${params.nameLowerFirstCharactor});
         try {
-             ${params.nameLowerFirstCharactor}Dao.update( ${params.nameLowerFirstCharactor});
+             ${params.nameLowerFirstCharactor}Dao.update${params.entityName}( ${params.nameLowerFirstCharactor});
         } catch (Exception e) {
             CommonUtils.printStackTraceInfo(logger, e);
             throw ServiceException.create("${params.upcaseEntityName}.UPDATE.FAIL");
         }
     }
 
-    public Page<${params.entityName}> searchAddresss(/*TODO ${params.entityName}Condition ${params.nameLowerFirstCharactor}Condition */){ 
-        Page<${params.entityName}>  ${params.nameLowerFirstCharactor}s =  ${params.nameLowerFirstCharactor}Dao.searchs(${params.nameLowerFirstCharactor}Condition);
+    public Page<${params.entityName}> search${params.entityName}(/*TODO ${params.entityName}Condition ${params.nameLowerFirstCharactor}Condition */){ 
+        Page<${params.entityName}>  ${params.nameLowerFirstCharactor}s =  ${params.nameLowerFirstCharactor}Dao.search${params.entityName}s(/*TODO ${params.nameLowerFirstCharactor}Condition*/);
         return  ${params.nameLowerFirstCharactor}s;
     }
 
@@ -60,6 +60,6 @@ public class ${params.entityName}ServiceImpl  implements BaseService{
     }
 
     public void apply() {
-         ${params.nameLowerFirstCharactor}Dao.apply();
+        //TODO ${params.nameLowerFirstCharactor}Dao.apply();
     }
 }
