@@ -1,0 +1,59 @@
+package com.benniu.egen.tools;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+
+import com.benniu.egen.controller.ControllerCODE;
+import com.benniu.egen.controller.DaoCODE;
+import com.benniu.egen.controller.ServiceCODE;
+import com.benniu.egen.entity.CodeParams;
+import com.codegentools.db.Table;
+import com.codegentools.utils.CodeGenUtils;
+import com.codegentools.utils.Config;
+import com.codegentools.utils.FreeMarkerUtils;
+import com.codegentools.utils.PrintUtils;
+
+public class ExecuteAction {
+
+	public static void main(String[] args) {
+		
+		CodeParams params = DocumentUtil.test();
+		
+		//组装文件路径
+		
+		//开始生成文件
+		for (int i = 0; i < params.getEntities().size(); i++) {
+			params.setEntityName(params.getEntities().get(i));
+			if(Collections.frequency(params.getControllerExclude(), params.getEntities().get(i))==0){
+				ControllerCODE.generateController(params);
+			}
+			if(Collections.frequency(params.getDaoExclude(), params.getEntities().get(i))==0){
+				DaoCODE.generateDao(params);
+			}
+			if(Collections.frequency(params.getServiceExclude(), params.getEntities().get(i))==0){
+				ServiceCODE.generateServiceImpl(params);
+				ServiceCODE.generateService(params);
+			}
+		}
+	}
+	
+	@Test
+	public void generateEntity(){
+		CodeGenUtils codeGenUtils=new CodeGenUtils();
+    	Config config=new Config();
+    	//属性加载
+    	try{
+    		List<Table> tables=codeGenUtils.getAllTable(config);
+    	    List<String> list = FreeMarkerUtils.generateVo(tables, config);
+    	    //
+    		PrintUtils.PrintList(tables);
+        	
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+	}
+	
+	
+}

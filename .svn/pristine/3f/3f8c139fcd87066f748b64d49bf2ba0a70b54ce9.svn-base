@@ -1,0 +1,18 @@
+package com.benniu.egen.tools;
+
+import com.benniu.egen.contorller.ControllerCODE;
+import com.benniu.egen.contorller.DaoCODE;
+import com.benniu.egen.contorller.ServiceCODE;
+
+public class ExecuteAction {
+
+	public static void main(String[] args) {
+		String entityName = "Test";
+		String productCode = "";
+		ControllerCODE.generateService(entityName,productCode);
+		DaoCODE.generateDao(entityName,productCode);
+		ServiceCODE.generateServiceImpl(entityName,productCode);
+		ServiceCODE.generateService(entityName,productCode);
+	}
+	
+}

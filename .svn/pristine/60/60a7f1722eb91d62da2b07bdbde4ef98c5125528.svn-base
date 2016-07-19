@@ -1,0 +1,71 @@
+package com.benniu.egen.tools;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
+
+import com.benniu.egen.entity.CodeParams;
+
+public class DocumentUtil {
+
+	public static CodeParams test() {
+		String resources = "config.properties";
+		// 将配置文件加载单独写成一个函数，将异常处理进行封装，使代码整洁
+		Properties properties = loadProperties(resources);
+		// 直接用getProperty获取属性值
+		CodeParams params = new CodeParams(); 
+		params.setDaoAbsolutePath(properties.getProperty("daoAbsolutePath"));
+		params.setServiceAbsolutePath(properties.getProperty("serviceAbsolutePath"));
+		params.setControllerAbsolutePath(properties.getProperty("controllerAbsolutePath"));
+		
+		params.setProjectName(properties.getProperty("projectName"));
+		params.setDaoPackage(properties.getProperty("daoPackage"));
+		params.setServicePackage(properties.getProperty("servicePackage"));
+		params.setControllerPackage(properties.getProperty("controllerPackage"));
+		
+		params.setControllerBasePath(properties.getProperty("controllerBasePath"));
+		params.setServiceBasePath(properties.getProperty("serviceBasePath"));
+		params.setDaoBasePath(properties.getProperty("daoBasePath"));
+		params.setConditionBasePath(properties.getProperty("conditionBasePath"));
+		params.setEntityBasePath(properties.getProperty("entityBasePath"));
+		
+		List<String> entitieList = new ArrayList<String>();
+		Collections.addAll(entitieList, properties.getProperty("entities").split(","));
+		params.setEntities(entitieList);
+		List<String> serviceList = new ArrayList<String>();
+		Collections.addAll(serviceList, properties.getProperty("controllerExclude").split(","));
+		params.setControllerExclude(serviceList);
+		List<String> controllerList = new ArrayList<String>();
+		Collections.addAll(controllerList, properties.getProperty("serviceExclude").split(","));
+		params.setServiceExclude(controllerList);
+		List<String> daoList = new ArrayList<String>();
+		Collections.addAll(daoList, properties.getProperty("daoExclude").split(","));
+		params.setDaoExclude(daoList);
+		
+		
+		return params;
+	}
+	
+	public static Properties loadProperties(String resources) {
+	   // 使用InputStream得到一个资源文件
+	   InputStream inputstream = DocumentUtil.class.getResourceAsStream(resources);
+	   // new 一个Properties
+	   Properties properties = new Properties();
+	   try {
+	   // 加载配置文件
+	      properties.load(inputstream);
+	      return properties;
+	   } catch (IOException e) {
+	      throw new RuntimeException(e);
+	   } finally {
+	      try {
+	         inputstream.close();
+	      } catch (IOException e) {
+	         throw new RuntimeException(e);
+	      }
+	   }
+	}
+}

@@ -1,0 +1,71 @@
+package com.benniu.egen.entity;
+
+public class CodeTemplateParams {
+	//实体类名称
+	private String entityName;
+	//service路径
+	private String servicePackage;
+	//dao路径
+	private String daoPackage;
+	//controller路径
+	private String controllerPackage;
+	//实体类路径
+	private String entityPackage;
+	//产品code
+	private String productCode;
+	//condition路径
+	private String conditionPackage;
+	
+	
+	public String getConditionPackage() {
+		return conditionPackage;
+	}
+	public void setConditionPackage(String conditionPackage) {
+		this.conditionPackage = conditionPackage;
+	}
+	public String getEntityName() {
+		return entityName;
+	}
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+	public String getServicePackage() {
+		return servicePackage;
+	}
+	public void setServicePackage(String servicePackage) {
+		this.servicePackage = servicePackage;
+	}
+	public String getDaoPackage() {
+		return daoPackage;
+	}
+	public void setDaoPackage(String daoPackage) {
+		this.daoPackage = daoPackage;
+	}
+	public String getControllerPackage() {
+		return controllerPackage;
+	}
+	public void setControllerPackage(String controllerPackage) {
+		this.controllerPackage = controllerPackage;
+	}
+	public String getEntityPackage() {
+		return entityPackage;
+	}
+	public void setEntityPackage(String entityPackage) {
+		this.entityPackage = entityPackage;
+	}
+	
+	public String getNameLowerFirstCharactor(){
+		return this.entityName.substring(0,1).toLowerCase() + this.entityName.substring(1,this.entityName.length());
+	}
+	
+	public String getUpcaseEntityName(){
+		return this.entityName.toUpperCase();
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	
+}

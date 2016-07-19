@@ -1,0 +1,20 @@
+#Copyright (c) Boxcode Studio
+#Wed May 04 14:19:45 CST 2016
+servicePackage=com.shine.view.service
+password=root
+daoExclude=
+jdbcUrl=jdbc\:mysql\://localhost\:3306/sonar?useUnicode\=true&amp;characterEncoding\=UTF-8
+serviceBasePath=D\:\\Work\\CODEProject\\src\\
+entities=ActionPlans, ActiveDashboards, ActiveRuleParameters, ActiveRules, Activities, Authors, CeActivity, CeQueue, Characteristics, Dashboards, DuplicationsIndex, Events, FileSources, GroupRoles, Groups, GroupsUsers, IssueChanges, IssueFilterFavourites, IssueFilters, Issues, LoadedTemplates, ManualMeasures, MeasureFilterFavourites, MeasureFilters, Metrics, Notifications, PermTemplatesGroups, PermTemplatesUsers, PermissionTemplates, ProjectLinks, ProjectMeasures, ProjectQprofiles, Projects, Properties, QualityGateConditions, QualityGates, ResourceIndex, Rules, RulesParameters, RulesProfiles, SchemaMigrations, Snapshots, UserRoles, UserTokens, Users, WidgetProperties, Widgets
+daoPackage=com.shine.dao
+projectCode=bcs
+controllerExclude=
+entityPackage=com.shine.view.entity
+userName=root
+templatePackage=com.ibenew.code.template
+controllerPackage=com.shine.view
+driverClass=com.mysql.jdbc.Driver
+controllerBasePath=D\:\\Work\\CODEProject\\src\\
+daoBasePath=D\:\\Work\\CODEProject\\src\\
+serviceExclude=
+conditionPackage=com.shine.view.condition

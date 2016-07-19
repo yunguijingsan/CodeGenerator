@@ -1,0 +1,52 @@
+package com.benniu.egen.tools;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
+import com.benniu.egen.entity.CodeTemplateParams;
+
+public class DocumentUtil {
+
+	public static CodeTemplateParams test() {
+		String resources = "config.properties";
+		// 将配置文件加载单独写成一个函数，将异常处理进行封装，使代码整洁
+		Properties properties = loadProperties(resources);
+		// 直接用getProperty获取属性值
+		CodeTemplateParams params = new CodeTemplateParams(); 
+		params.setDaoPackage(properties.getProperty("daoPackage"));
+		params.setServicePackage(properties.getProperty("servicePackage"));
+		params.setControllerPackage(properties.getProperty("controllerPackage"));
+		
+		params.setControllerBasePath(properties.getProperty("controllerBasePath"));
+		params.setServiceBasePath(properties.getProperty("serviceBasePath"));
+		params.setDaoBasePath(properties.getProperty("daoBasePath"));
+		
+		params.setScconditionPackage(properties.getProperty("scconditionPackage"));
+		params.setScdaoPackage(properties.getProperty("scdaoPackage"));
+		params.setScentityPackage(properties.getProperty("scentityPackage"));
+		params.setScservicePackage(properties.getProperty("scservicePackage"));
+		
+		return params;
+	}
+	
+	private static Properties loadProperties(String resources) {
+	   // 使用InputStream得到一个资源文件
+	   InputStream inputstream = DocumentUtil.class.getResourceAsStream(resources);
+	   // new 一个Properties
+	   Properties properties = new Properties();
+	   try {
+	   // 加载配置文件
+	      properties.load(inputstream);
+	      return properties;
+	   } catch (IOException e) {
+	      throw new RuntimeException(e);
+	   } finally {
+	      try {
+	         inputstream.close();
+	      } catch (IOException e) {
+	         throw new RuntimeException(e);
+	      }
+	   }
+	}
+}

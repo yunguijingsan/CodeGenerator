@@ -1,0 +1,183 @@
+package com.ibenew.code.entity;
+
+import java.util.List;
+
+public class CodeParams {
+	//实体类名称
+	private String entityName;
+	//产品简称
+	private String projectName;
+	
+	//service绝对路径
+	private String serviceAbsolutePath;
+	//dao绝对路径
+	private String daoAbsolutePath;
+	//controller绝对路径
+	private String controllerAbsolutePath;	
+	
+	//service路径
+	private String servicePackage;
+	//dao路径
+	private String daoPackage;
+	//controller路径
+	private String controllerPackage;	
+	
+	//condition路径
+	private String conditionBasePath;
+	//entity路径
+	private String entityBasePath;
+	//生成service路径
+	private String serviceBasePath;
+	//生成dao路径
+	private String daoBasePath;
+	//生成controller路径
+	private String controllerBasePath;
+	
+	//要生成的实体类名称
+	private List<String> entities;
+	//排除生成service
+	private List<String> serviceExclude;
+	//排除生成controller
+	private List<String> controllerExclude;
+	//排除生成dao
+	private List<String> daoExclude;
+	
+	private String templatePackage;
+	
+	
+	public String getServiceAbsolutePath() {
+		return serviceAbsolutePath;
+	}
+	public void setServiceAbsolutePath(String serviceAbsolutePath) {
+		this.serviceAbsolutePath = serviceAbsolutePath;
+	}
+	public String getDaoAbsolutePath() {
+		return daoAbsolutePath;
+	}
+	public void setDaoAbsolutePath(String daoAbsolutePath) {
+		this.daoAbsolutePath = daoAbsolutePath;
+	}
+	public String getControllerAbsolutePath() {
+		return controllerAbsolutePath;
+	}
+	public void setControllerAbsolutePath(String controllerAbsolutePath) {
+		this.controllerAbsolutePath = controllerAbsolutePath;
+	}
+	public List<String> getEntities() {
+		return entities;
+	}
+	public void setEntities(List<String> entities) {
+		this.entities = entities;
+	}
+	public List<String> getServiceExclude() {
+		return serviceExclude;
+	}
+	public void setServiceExclude(List<String> serviceExclude) {
+		this.serviceExclude = serviceExclude;
+	}
+	public List<String> getControllerExclude() {
+		return controllerExclude;
+	}
+	public void setControllerExclude(List<String> controllerExclude) {
+		this.controllerExclude = controllerExclude;
+	}
+	public List<String> getDaoExclude() {
+		return daoExclude;
+	}
+	public void setDaoExclude(List<String> daoExclude) {
+		this.daoExclude = daoExclude;
+	}
+	public String getConditionBasePath() {
+		return conditionBasePath;
+	}
+	public void setConditionBasePath(String conditionBasePath) {
+		this.conditionBasePath = conditionBasePath;
+	}
+	public String getEntityBasePath() {
+		return entityBasePath;
+	}
+	public void setEntityBasePath(String entityBasePath) {
+		this.entityBasePath = entityBasePath;
+	}
+	public String getServiceBasePath() {
+		return serviceBasePath;
+	}
+	public void setServiceBasePath(String serviceBasePath) {
+		this.serviceBasePath = serviceBasePath;
+	}
+	public String getDaoBasePath() {
+		return daoBasePath;
+	}
+	public void setDaoBasePath(String daoBasePath) {
+		this.daoBasePath = daoBasePath;
+	}
+	public String getControllerBasePath() {
+		return controllerBasePath;
+	}
+	public void setControllerBasePath(String controllerBasePath) {
+		this.controllerBasePath = controllerBasePath;
+	}
+	public String getEntityName() {
+		return entityName;
+	}
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+	public String getServicePackage() {
+		return servicePackage;
+	}
+	public void setServicePackage(String servicePackage) {
+		this.servicePackage = servicePackage;
+	}
+	public String getDaoPackage() {
+		return daoPackage;
+	}
+	public void setDaoPackage(String daoPackage) {
+		this.daoPackage = daoPackage;
+	}
+	public String getControllerPackage() {
+		return controllerPackage;
+	}
+	public void setControllerPackage(String controllerPackage) {
+		this.controllerPackage = controllerPackage;
+	}
+	public String getNameLowerFirstCharactor(){
+		return this.entityName.substring(0,1).toLowerCase() + this.entityName.substring(1,this.entityName.length());
+	}
+	public String getUpcaseEntityName(){
+		return this.entityName.toUpperCase();
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getTemplatePackage() {
+		return templatePackage;
+	}
+	public void setTemplatePackage(String templatePackage) {
+		this.templatePackage = templatePackage;
+	}
+	
+	private String getBaseServicePackage(){
+		return this.servicePackage.substring(0,this.servicePackage.lastIndexOf("."));
+	}
+	@Override
+	public String toString() {
+		return "CodeParams [entityName=" + entityName + ", projectName="
+				+ projectName + ", serviceAbsolutePath=" + serviceAbsolutePath
+				+ ", daoAbsolutePath=" + daoAbsolutePath
+				+ ", controllerAbsolutePath=" + controllerAbsolutePath
+				+ ", servicePackage=" + servicePackage + ", daoPackage="
+				+ daoPackage + ", controllerPackage=" + controllerPackage
+				+ ", conditionBasePath=" + conditionBasePath
+				+ ", entityBasePath=" + entityBasePath + ", serviceBasePath="
+				+ serviceBasePath + ", daoBasePath=" + daoBasePath
+				+ ", controllerBasePath=" + controllerBasePath + ", entities="
+				+ entities + ", serviceExclude=" + serviceExclude
+				+ ", controllerExclude=" + controllerExclude + ", daoExclude="
+				+ daoExclude + ", templatePackage=" + templatePackage + "]";
+	}
+	
+}

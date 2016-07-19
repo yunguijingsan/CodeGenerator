@@ -1,0 +1,152 @@
+package com.ibenew.code.tools;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+
+import com.codegentools.db.Table;
+import com.codegentools.utils.CodeGenUtils;
+import com.codegentools.utils.Config;
+import com.codegentools.utils.FreeMarkerUtils;
+import com.codegentools.utils.PrintUtils;
+import com.ibenew.code.entity.CodeParams;
+import com.ibenew.code.generator.ConditionCodeImpl;
+import com.ibenew.code.generator.ControllerCodeImpl;
+import com.ibenew.code.generator.DaoCodeImpl;
+import com.ibenew.code.generator.ServiceCodeImpl;
+import com.ibenew.code.generator.VoCodeImpl;
+
+public class ExecuteAction {
+
+	@Test
+	public void test() {
+
+	}
+
+	public static void main(String[] args) {
+
+		CodeParams params = DocumentUtil.test();
+
+		// 组装文件路径
+		// 开始生成文件
+		for (int i = 0; i < params.getEntities().size(); i++) {
+			String entityName = params.getEntities().get(i);
+			params.setEntityName(entityName);
+			if (!params.getControllerExclude().contains(entityName)) {
+				new ControllerCodeImpl(params).generate();
+			}
+			if (!params.getDaoExclude().contains(entityName)) {
+				new DaoCodeImpl(params).generate();
+				new ConditionCodeImpl(params).generate();
+			}
+			if (!params.getServiceExclude().contains(entityName)) {
+				new ServiceCodeImpl(params).generate();
+			}
+//			if(!params.getVoExclude().contains(entityName)){
+//				new VoCodeImpl(params).generate();
+//			}
+		}
+	}
+
+	/**
+	 * 生成实体类
+	 */
+	@Test
+	public void generateEntities() {
+		CodeGenUtils codeGenUtils = new CodeGenUtils();
+		Config config = DocumentUtil.getEntityConfig();
+
+		try {
+			List<Table> tables = codeGenUtils.getAllTable(config);
+			List<String> entityNames = FreeMarkerUtils.generateVo(tables,
+					config);
+			// TODO 将生成的实体类名写到config.properties的entities属性中。
+			DocumentUtil.write(entityNames);
+			PrintUtils.PrintList(tables);
+			System.out.println(entityNames.toString());
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * 扫描entity包下的实体类名，写到config.properties的entities属性中。
+	 * @throws IOException 
+	 */
+	@Test
+	public void scanEntityNames() throws IOException {
+		StringBuilder sb = new StringBuilder();
+		CodeParams params = DocumentUtil.test();
+		String path = params.getDaoBasePath()
+				+ DocumentUtil.getPathFromPackage(params.getEntityBasePath());
+		File entityDir = new File(path);
+		File[] files = entityDir.listFiles();
+		for (File file : files) {
+			if (file.isDirectory()) {
+				
+			} else {
+				sb.append(file.getName().substring(0,file.getName().length() - 5)+ ",");
+			}
+		}
+		setProfileString(sb.substring(0, sb.length() - 1));
+	}
+
+	/**
+	 * 保存.properties文件，使该文件与原来顺序一致
+	 * @param value
+	 * @return
+	 * @throws IOException
+	 */
+	public boolean setProfileString(String value) throws IOException
+	 {
+		String file = "D:\\work\\CODEProject\\src\\com\\ibenew\\code\\tools\\config.properties";
+		String key = "entities";
+		File f = new File(file);
+		boolean res = false;
+		if (f.exists()) {
+			BufferedReader br = new BufferedReader(new FileReader(f));
+			String outstr = "";
+			String line = "";
+
+			while ((line = br.readLine()) != null) {
+				if (line == ""){	//为空
+					outstr += "\n";
+					continue;
+				}
+				if (line.startsWith("#")){	//为注释
+					outstr += line + "\n";
+					continue;
+				}
+				if (line.trim().startsWith(key)) {
+					String[] keyandvalue = line.split("=");
+
+					outstr += keyandvalue[0].toString() + "=" + value.toString() + "\n";
+
+					res = true;
+					continue;
+				}
+				outstr += line + "\n";
+			}
+			System.out.println(outstr);
+			if (res) {
+
+				FileWriter fw = new FileWriter(file, false);
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write(outstr);
+
+				bw.close();
+				fw.close();
+				return true;
+			}
+		}
+		return false;
+	}
+}

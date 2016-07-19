@@ -1,0 +1,17 @@
+package ${params.servicePackage};
+
+import com.shine.core.utils.page.Page;
+import com.shine.view.service.BaseService;
+import ${params.entityBasePath}.${params.entityName};
+import ${params.conditionPackage}.${params.entityName}Condition;
+
+public interface ${params.entityName}Service extends BaseService{
+
+    public void add(${params.entityName} ${params.nameLowerFirstCharactor});
+
+    public ${params.entityName} findById(Integer id);
+
+    public void update(${params.entityName} ${params.nameLowerFirstCharactor});
+
+    public Page<${params.entityName}> search( ${params.entityName}Condition ${params.nameLowerFirstCharactor}Condition );
+}

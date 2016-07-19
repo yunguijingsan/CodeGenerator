@@ -1,0 +1,149 @@
+package com.ibenew.code.tools;
+
+import java.io.IOException;
+import java.util.Map;
+
+import net.sf.json.JSONObject;
+
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
+
+public class HttpClientUtil {
+	/**
+	 * 使用Get方式获取数据
+	 * 
+	 * @param url
+	 *            URL包括参数，http://HOST/XX?XX=XX&XXX=XXX
+	 * @param charset
+	 * @return
+	 */
+	public static String sendGet(String url) {
+		String result = "";
+		// 创建默认的httpClient实例
+		CloseableHttpClient httpClient = getHttpClient();
+		try {
+			// 用get方法发送http请求
+			HttpGet get = new HttpGet(url);
+			CloseableHttpResponse httpResponse = null;
+			// 发送get请求
+			httpResponse = httpClient.execute(get);
+			try {
+				result = EntityUtils.toString(httpResponse.getEntity());
+				JSONObject json = JSONObject.fromObject(result);
+				if ("1".equals(json.getString("status"))) {
+					System.out.println("业务处理成功！");
+				} else {
+					System.out.println("业务处理失败！");
+				}
+				System.out.println("返回结果：" + result);
+			} finally {
+				httpResponse.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				closeHttpClient(httpClient);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * POST请求，Map形式数据
+	 * 
+	 * @param url
+	 *            请求地址
+	 * @param param
+	 *            请求数据
+	 * @throws IOException
+	 * @throws ClientProtocolException
+	 */
+	public static String sendPost(String url, Map<String, String> parameters)
+			throws ClientProtocolException, IOException {
+
+		String result = "";
+		CloseableHttpClient httpClient = getHttpClient();
+		try {
+			HttpPost httpPost = new HttpPost(url);
+			// map转化为json格式
+			JSONObject jsonObject = JSONObject.fromObject(parameters);
+			StringEntity entity = new StringEntity(jsonObject.toString(),"utf-8");
+			// 设置请求参数
+			entity.setContentEncoding("UTF-8");
+			entity.setContentType("application/json");
+			httpPost.setEntity(entity);
+
+			CloseableHttpResponse httpResponse = httpClient.execute(httpPost);
+			try {
+				// 请求结束，返回结果
+				result = EntityUtils.toString(httpResponse.getEntity());
+				JSONObject json = JSONObject.fromObject(result);
+				if ("1".equals(json.getString("status"))) {
+					System.out.println("业务处理成功！");
+				} else {
+					System.out.println("业务处理失败！");
+				}
+				System.out.println("返回结果：" + result);
+			} finally {
+				httpResponse.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				closeHttpClient(httpClient);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
+	private static CloseableHttpClient getHttpClient() {
+		return HttpClients.createDefault();
+	}
+
+	private static void closeHttpClient(CloseableHttpClient client)
+			throws IOException {
+		if (client != null) {
+			client.close();
+		}
+	}
+
+	public static void main(String[] args) throws ClientProtocolException,
+			IOException {
+//		String url = "http://192.168.30.66:7101/eihView/resources/eih/address?id=190";
+//		sendGet(url);
+
+//		 String url = "http://192.168.30.66:7101/eihView/resources/eih/address";
+//		 Map<String, String> paramsMap = new HashMap<String, String>();
+//		 paramsMap.put("accountId", "72");
+//		 paramsMap.put("assignmentType", "ADDR");
+//		 paramsMap.put("billToAddr", "");
+//		 paramsMap.put("city", "日本");
+//		 paramsMap.put("defaultFlag", "N");
+//		 paramsMap.put("description", "");
+//		 paramsMap.put("emailAddress", "13838380438@sina.com");
+//		 paramsMap.put("firstName", "");
+//		 paramsMap.put("fullName", "hx-test");
+//		 paramsMap.put("lastName", "");
+//		 paramsMap.put("nationalIdentifier", "");
+//		 paramsMap.put("province", "中国");
+//		 paramsMap.put("sex", "");
+//		 paramsMap.put("shipToAddr", "北海道");
+//		 paramsMap.put("status", "VALID");
+//		 paramsMap.put("telephone", "18815888888");
+//		 paramsMap.put("title", "hx-test");
+//		 sendPost(url, paramsMap);
+	}
+
+}

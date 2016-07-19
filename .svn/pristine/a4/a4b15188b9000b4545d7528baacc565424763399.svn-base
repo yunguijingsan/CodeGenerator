@@ -1,0 +1,113 @@
+package com.benniu.egen.entity;
+
+public class CodeTemplateParams {
+	//实体类名称
+	private String entityName;
+	//产品code
+	private String productCode;
+	
+	//service路径
+	private String servicePackage;
+	//dao路径
+	private String daoPackage;
+	//controller路径
+	private String controllerPackage;
+	
+	//生成service路径
+	private String serviceBasePath;
+	//生成dao路径
+	private String daoBasePath;
+	//生成controller路径
+	private String controllerBasePath;
+	
+	//模型dao路径
+	private String scdaoPackage;
+	public String getScdaoPackage() {
+		return scdaoPackage;
+	}
+	public void setScdaoPackage(String scdaoPackage) {
+		this.scdaoPackage = scdaoPackage;
+	}
+	public String getScservicePackage() {
+		return scservicePackage;
+	}
+	public void setScservicePackage(String scservicePackage) {
+		this.scservicePackage = scservicePackage;
+	}
+	public String getScconditionPackage() {
+		return scconditionPackage;
+	}
+	public void setScconditionPackage(String scconditionPackage) {
+		this.scconditionPackage = scconditionPackage;
+	}
+	public String getScentityPackage() {
+		return scentityPackage;
+	}
+	public void setScentityPackage(String scentityPackage) {
+		this.scentityPackage = scentityPackage;
+	}
+	//模型service路径
+	private String scservicePackage;
+	//模型condition路径
+	private String scconditionPackage;
+	//模型entity路径
+	private String scentityPackage;
+	
+	public String getServiceBasePath() {
+		return serviceBasePath;
+	}
+	public void setServiceBasePath(String serviceBasePath) {
+		this.serviceBasePath = serviceBasePath;
+	}
+	public String getDaoBasePath() {
+		return daoBasePath;
+	}
+	public void setDaoBasePath(String daoBasePath) {
+		this.daoBasePath = daoBasePath;
+	}
+	public String getControllerBasePath() {
+		return controllerBasePath;
+	}
+	public void setControllerBasePath(String controllerBasePath) {
+		this.controllerBasePath = controllerBasePath;
+	}
+	public String getEntityName() {
+		return entityName;
+	}
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+	public String getServicePackage() {
+		return servicePackage;
+	}
+	public void setServicePackage(String servicePackage) {
+		this.servicePackage = servicePackage;
+	}
+	public String getDaoPackage() {
+		return daoPackage;
+	}
+	public void setDaoPackage(String daoPackage) {
+		this.daoPackage = daoPackage;
+	}
+	public String getControllerPackage() {
+		return controllerPackage;
+	}
+	public void setControllerPackage(String controllerPackage) {
+		this.controllerPackage = controllerPackage;
+	}
+	
+	public String getNameLowerFirstCharactor(){
+		return this.entityName.substring(0,1).toLowerCase() + this.entityName.substring(1,this.entityName.length());
+	}
+	
+	public String getUpcaseEntityName(){
+		return this.entityName.toUpperCase();
+	}
+	public String getProductCode() {
+		return productCode;
+	}
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
+	}
+	
+}

@@ -1,0 +1,51 @@
+package com.benniu.egen.tools;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Properties;
+
+import com.benniu.egen.contorller.ControllerCODE;
+import com.benniu.egen.contorller.DaoCODE;
+import com.benniu.egen.contorller.ServiceCODE;
+
+public class ExecuteAction {
+
+	public static void main(String[] args) {
+		//获取配置文件以及数据
+		String resources = "config.properties";
+		Properties properties = DocumentUtil.loadProperties(resources);
+		String entities = properties.getProperty("entities");
+		String serviceExclude = properties.getProperty("serviceExclude");
+		String controllerExclude = properties.getProperty("controllerExclude");
+		String daoExclude = properties.getProperty("daoExclude");
+		String projectName = properties.getProperty("projectName");
+		String [] entitie = entities.split(",");
+		List<String> entitieList = new ArrayList<String>();
+		Collections.addAll(entitieList, entitie);
+		String [] service = serviceExclude.split(",");
+		List<String> serviceList = new ArrayList<String>();
+		Collections.addAll(serviceList, service);
+		String [] controller = controllerExclude.split(",");
+		List<String> controllerList = new ArrayList<String>();
+		Collections.addAll(controllerList, controller);
+		String [] dao = daoExclude.split(",");
+		List<String> daoList = new ArrayList<String>();
+		Collections.addAll(daoList, dao);
+		//开始生成文件
+		for (int i = 0; i < entitieList.size(); i++) {
+			if(Collections.frequency(controllerList, entitie[i])==0){
+				ControllerCODE.generateController(entitie[i],projectName);
+			}
+			if(Collections.frequency(daoList, entitie[i])==0){
+				DaoCODE.generateDao(entitie[i],projectName);
+			}
+			if(Collections.frequency(serviceList, entitie[i])==0){
+				ServiceCODE.generateServiceImpl(entitie[i],projectName);
+				ServiceCODE.generateService(entitie[i],projectName);
+			}
+		}
+	}
+	
+	
+}

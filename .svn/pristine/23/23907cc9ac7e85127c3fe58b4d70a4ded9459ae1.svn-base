@@ -1,0 +1,76 @@
+package com.ibenew.code.tools;
+
+import java.util.Collections;
+import java.util.List;
+
+import org.junit.Test;
+
+import com.codegentools.db.Table;
+import com.codegentools.utils.CodeGenUtils;
+import com.codegentools.utils.Config;
+import com.codegentools.utils.FreeMarkerUtils;
+import com.codegentools.utils.PrintUtils;
+import com.ibenew.code.entity.CodeParams;
+import com.ibenew.code.generator.ControllerCodeImpl;
+import com.ibenew.code.generator.DaoCodeImpl;
+import com.ibenew.code.generator.ServiceCodeImpl;
+
+import freemarker.template.Configuration;
+
+public class ExecuteAction {
+	
+	@Test
+	public void test(){
+		System.out.println(Configuration.getVersion());
+	}
+
+	public static void main(String[] args) {
+		
+		CodeParams params = DocumentUtil.test();
+		
+		//组装文件路径
+		
+		//开始生成文件
+		for (int i = 0; i < params.getEntities().size(); i++) {
+			params.setEntityName(params.getEntities().get(i));
+			if(Collections.frequency(params.getControllerExclude(), params.getEntities().get(i))==0){
+				new ControllerCodeImpl(params).generate();
+			}
+			if(Collections.frequency(params.getDaoExclude(), params.getEntities().get(i))==0){
+				new DaoCodeImpl(params).generate();
+			}
+			if(Collections.frequency(params.getServiceExclude(), params.getEntities().get(i))==0){
+				new ServiceCodeImpl(params).generate();
+			}
+		}
+	}
+	
+	/**
+	 * 生成实体类
+	 */
+	@Test
+	public void generateEntities(){
+		CodeGenUtils codeGenUtils=new CodeGenUtils();
+    	Config config=DocumentUtil.getEntityConfig();
+    
+    	try{
+    		List<Table> tables=codeGenUtils.getAllTable(config);
+    	    List<String> entityNames = FreeMarkerUtils.generateVo(tables, config);
+    	    //TODO 将生成的实体类名写到config.properties的entities属性中。
+    	    DocumentUtil.write(entityNames);
+    		PrintUtils.PrintList(tables);
+        	
+    	}catch(Exception e){
+    		e.printStackTrace();
+    	}
+	}
+	
+	/**
+	 * 扫描entity包下的实体类名，写到config.properties的entities属性中。
+	 */
+	@Test
+	public void scanEntityNames(){
+		
+	}
+	
+}
