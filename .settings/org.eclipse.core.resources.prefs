@@ -2,5 +2,6 @@ eclipse.preferences.version=1
 encoding//src/com/ibenew/code/tools/bcs-config.properties=UTF-8
 encoding//src/com/ibenew/code/tools/config.properties=UTF-8
 encoding//src/com/ibenew/code/tools/hr-config.properties=UTF-8
+encoding//src/com/ibenew/code/tools/ims-config.properties=UTF-8
 encoding//src/com/ibenew/code/tools/xsa-config.properties=UTF-8
 encoding/<project>=UTF-8
